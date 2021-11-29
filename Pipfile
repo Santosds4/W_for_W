@@ -4,10 +4,19 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
-flask-sqlalchemy = "*"
+gunicorn = "*"
+python-decouple = "*"
+psycopg2-binary = "*"
+pillow = "*"
+collectfast = "*"
+django = "*"
+dj-database-url = "*"
+django-ordered-model = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
+flake8 = "*"
 
 [requires]
 python_version = "3.9"
+#

@@ -1,0 +1,30 @@
+<section class="section" id="testimonials">
+    <div class="container">
+        <header>
+            <h2 class="title">Depoimentos de quem já passou por aqui</h2>
+        </header>
+        <div class="testimonials swiper-container">
+            <div class="swiper-wrapper">
+                {% for depoimento in depoimentos %}
+                <div class="testimonial swiper-slide">
+                    <blockquote>
+
+                        <p> <span>&ldquo;</span> {{ depoimento.texto}}
+                        </p>
+                        <cite>
+                            <img
+                                    src="{{ depoimento.usuario.picture.url }}"
+                                    alt="Foto de {{ depoimento.usuario.get_full_name }}"
+                            />
+                            {{depoimento.usuario.get_full_name }}
+                        </cite>
+                    </blockquote>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
