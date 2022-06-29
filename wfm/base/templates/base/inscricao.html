@@ -15,59 +15,74 @@
         {% endif %}
         <p/>
 
-        <form class="row g-3">
+        <form class="row g-3" method="post">
 
-            <div class="col-12">
-                <label for="inputName" class="form-label">Nome</label>
-                <input type="text" class="form-control" id="inputName" placeholder="Informe seu nome">
+            {% csrf_token %}
+            {% if slug == 'Receba Ajuda' %}
+                <input hidden type="text" class="form-control" name="user_type" id="user_type" value="beneficiary">
+            {% elif slug == 'Apoie'%}
+                <input hidden type="text" class="form-control" name="user_type" id="user_type" value="giver">
+           {% endif %}
+            <div class="col-4">
+                <label for="first_name" class="form-label">Nome</label>
+                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="">
+            </div>
+            <div class="col-4">
+                <label for="last_name" class="form-label">Sobrenome</label>
+                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="">
+            </div>
+
+            <div class="col-4">
+                <label for="cpf_cnpj" class="form-label">CPF</label>
+                <input type="text" class="form-control" name="cpf_cnpj" id="cpf_cnpj" placeholder="">
             </div>
 
             <div class="form-row">
                 <div class="col-md-2">
-                    <label for="inputCep" class="form-label">Cep</label>
-                    <input type="text" class="form-control" id="inputCep"
+                    <label for="cep" class="form-label">Cep</label>
+                    <input type="text" class="form-control" name="cep" id="cep"
                            placeholder="Digite seu CEP"
                     >
                 </div>
             </div>
 
             <div class="col-md-10">
-                <label for="inputLogradouro" class="form-label">Logradouro</label>
-                <input type="text" class="form-control" id="inputLogradouro" placeholder="" disabled readonly>
+                <label for="address" class="form-label">Logradouro</label>
+                <input type="text" class="form-control" name="address" id="address" placeholder="" disabled readonly>
             </div>
 
             <div class="col-md-2">
-                <label for="inputNumero" class="form-label">Número</label>
-                <input type="text" class="form-control" id="inputNumero" placeholder="">
+                <label for="address_number" class="form-label">Número</label>
+                <input type="text" class="form-control" name="address_number" id="address_number" placeholder="">
             </div>
 
             <div class="col-md-6">
-                <label for="inputBairro" class="form-label">Bairro</label>
-                <input type="text" class="form-control" id="inputBairro" disabled readonly>
+                <label for="district" class="form-label">Bairro</label>
+                <input type="text" class="form-control" name="district" id="district" readonly>
             </div>
 
             <div class="col-md-5">
-                <label for="inputCidade" class="form-label">Cidade</label>
-                <input type="text" class="form-control" id="inputCidade" placeholder="" disabled readonly>
+                <label for="city" class="form-label">Cidade</label>
+                <input type="text" class="form-control" name="city" id="city" placeholder="" readonly>
             </div>
 
 
             <div class="col-md-1">
-                <label for="inputEstado" class="form-label">Estado</label>
-                <input type="text" class="form-control" id="inputEstado" placeholder="" disabled readonly>
+                <label for="state" class="form-label">Estado</label>
+                <input type="text" class="form-control" name="state" id="state" placeholder="" readonly>
             </div>
 
             <!-- Force next columns to break to new line at md breakpoint and up -->
             <div class="w-100 d-none d-md-block"></div>
 
             <div class="col-md-6">
-                <label for="inputEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email">
             </div>
 
             <div class="col-md-2">
-                <label for="inputFone" class="form-label">Telefone</label>
-                <input type="text" class="form-control" id="inputFone">
+                <label for="phone" class="form-label">Telefone</label>
+                <input type="text" class="form-control" name="phone" id="phone">
             </div>
 
             <div class="col-12 mt-3">
@@ -76,24 +91,24 @@
         </form>
         <script>window.addEventListener('load', function () {
             (function ($) {
-                $("input#inputCep").change(function () {
+                $("input#cep").change(function () {
                     let cep_code = $(this).val().replace('-','');
                     let api_url = "https://cep.awesomeapi.com.br/json/"+cep_code
-                    if (cep_code.length <= 0 && cep_code.length < 8 ) {
-                        $("input#inputCep").val('');
-                        $("input#inputEstado").val('');
-                        $("input#inputCidade").val('');
-                        $("input#inputBairro").val('');
-                        $("input#inputLogradouro").val('');
+                    if (cep_code.length >= 0 && cep_code.length < 8 ) {
+                        $("input#address").val('');
+                        $("input#district").val('');
+                        $("input#city").val('');
+                        $("input#state").val('');
+                        $("input#cep").val('');
                         return;
                     }
                     $.get(api_url)
                         .done(function(result) {
-                            $("input#inputCep").val(result.cep);
-                            $("input#inputEstado").val(result.state);
-                            $("input#inputCidade").val(result.city);
-                            $("input#inputBairro").val(result.district);
-                            $("input#inputLogradouro").val(result.address);
+                            $("input#address").val(result.address);
+                            $("input#district").val(result.district);
+                            $("input#city").val(result.city);
+                            $("input#state").val(result.state);
+                            $("input#cep").val(result.cep);
                             alert("Dados recebidos e alterados");
                         })
                         .fail(function(jqXHR, textStatus, errorThrown){
@@ -101,20 +116,47 @@
                                 console.log('textStatus: ' + textStatus );
                                 console.log('errorThrown: ' + errorThrown  );
                                 alert(jqXHR.responseJSON.message || "Houve um erro desconhecido");
-                                $("input#inputCep").val('');
-                                $("input#inputEstado").val('');
-                                $("input#inputCidade").val('');
-                                $("input#inputBairro").val('');
-                                $("input#inputLogradouro").val('');
-                                $("input#inputCep").focus();
+                                $("input#address").val('');
+                                $("input#district").val('');
+                                $("input#city").val('');
+                                $("input#state").val('');
+                                $("input#cep").val('');
+
+                                $("input#cep").focus();
 
                         });
+                });
+                $("input#cpf_cnpj").change(function () {
+                    if ($(this).val().length > 0 && $(this).val().length < 14 ) {
+                        alert("CPF inválido!");
+                        $("input#cpf_cnpj").val('');
+                        return;
+                    }
+                });
+            }(jQuery));
+        });</script>
+
+        <script>window.addEventListener('load', function () {
+            (function ($) {
+                $("input#cpf_cnpj").change(function () {
+                    if ($(this).val().length < 15 ) {
+                        return;
+                    }
                 });
             }(jQuery));
         });</script>
         <script>
             $(document).ready(function () {
-                $('#inputCep').inputmask('99999-999')
+                $('#cep').inputmask('99999-999')
+            });
+            $(document).ready(function () {
+                $('#phone').inputmask({
+                    mask: ["(99) 9999-9999", "(99) 99999-9999", ],
+                    keepStatic: true
+                });
+            });
+            $(document).ready(function () {
+                $('#cpf_cnpj').inputmask('999.999.999-99')
             });
         </script>
     </div>

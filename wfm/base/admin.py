@@ -20,8 +20,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from ordered_model.admin import OrderedModelAdmin
 
-from wfm.base.forms import DoacaoChangeListForm
-from wfm.base.models import User, Foto, Item, Evento, Depoimento, Doacao, DoacaoItem
+from wfm.base.forms import DoacaoForm
+from wfm.base.models import User, Foto, Item, Evento, Depoimento, Doacao, ItemMovimentado
 
 csrf_protect_m = method_decorator(csrf_protect)
 sensitive_post_parameters_m = method_decorator(sensitive_post_parameters())
@@ -47,7 +47,9 @@ class UserAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('first_name', 'last_name', 'email', 'password', 'user_type')}),
 
-        ('Outras Informações', {'fields': ("foto_de_perfil", 'picture', 'cpf_cnpj', 'phone', 'address', 'cep')}),
+        (
+        'Outras Informações', {'fields': ("foto_de_perfil", 'picture', 'cpf_cnpj', 'phone', 'address', 'address_number',
+                                          'district', 'city', 'state', 'cep')}),
 
         (_('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
@@ -59,7 +61,8 @@ class UserAdmin(admin.ModelAdmin):
             'classes': ('wide',),
             'fields': ('first_name', 'last_name', 'email', 'password1', 'password2', 'user_type'),
         }),
-        ('Outras Informações', {'fields': ('picture', 'cpf_cnpj', 'phone', 'address', 'cep')}),
+        ('Outras Informações', {'fields': ('picture', 'cpf_cnpj', 'phone', 'address', 'address_number', 'district',
+                                           'city', 'state', 'cep')}),
 
     )
     form = UserChangeForm
@@ -235,17 +238,39 @@ class DepoimentoAdmin(admin.ModelAdmin):
 
 class DoacaoChangeList(ChangeList):
 
-    def __init__(self, request, model, list_display,
-                 list_display_links, list_filter, date_hierarchy,
-                 search_fields, list_select_related, list_per_page,
-                 list_max_show_all, list_editable, model_admin, sortable_by):
-
-        super(DoacaoChangeList, self).__init__(request, model,
-                                               list_display, list_display_links, list_filter,
-                                               date_hierarchy, search_fields, list_select_related,
-                                               list_per_page, list_max_show_all, list_editable,
-                                               model_admin, sortable_by
-                                               )
+    def __init__(
+        self,
+        request,
+        model,
+        list_display,
+        list_display_links,
+        list_filter,
+        date_hierarchy,
+        search_fields,
+        list_select_related,
+        list_per_page,
+        list_max_show_all,
+        list_editable,
+        model_admin,
+        sortable_by,
+        search_help_text,
+    ):
+        super().__init__(
+            request,
+            model,
+            list_display,
+            list_display_links,
+            list_filter,
+            date_hierarchy,
+            search_fields,
+            list_select_related,
+            list_per_page,
+            list_max_show_all,
+            list_editable,
+            model_admin,
+            sortable_by,
+            search_help_text,
+        )
 
         # these need to be defined here, and not in MovieAdmin
         self.list_display = ['descricao', 'data', 'usuario', 'evento', 'itens']
@@ -259,9 +284,10 @@ class DoacaoAdmin(admin.ModelAdmin):
         return DoacaoChangeList
 
     def get_changelist_form(self, request, **kwargs):
-        return DoacaoChangeListForm
+        return DoacaoForm
 
 
-@admin.register(DoacaoItem)
-class DoacaoItem(admin.ModelAdmin):
-    pass
+@admin.register(ItemMovimentado)
+class ItemMovimentadoAdmin(admin.ModelAdmin):
+    list_display = ('item', 'quantidade','doacao')
+

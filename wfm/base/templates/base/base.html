@@ -57,7 +57,7 @@
 </head>
 <body>
 
-<nav id="nav-bar" class="navbar navbar-light navbar-expand-sm nav-fill" style="background-color:#fae3fd;">
+<nav id="nav-bar" class="navbar navbar-light navbar-expand-sm" style="background-color:#fae3fd;">
 {#    <div class="container-fluid">#}
         <a class="navbar-brand" href="{% url 'base:home' %}">
             <img
@@ -72,13 +72,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav  mb-2 mb-lg-0">
-                <a class="nav-item nav-link" href="{% url 'base:sobre' %}">Sobre</a>
-                <a class="nav-item nav-link" href="{% url 'base:servicos' %}">Serviços</a>
-                <a class="nav-item nav-link" href="{% url 'base:depoimentos' %}">Depoimentos</a>
-                <a class="nav-item nav-link" href="{% url 'base:loja' %}">Loja</a>
-                <a class="nav-item nav-link" href="{% url 'base:apoiadores' %}">Apoiadores</a>
-                <a class="nav-item nav-link" href="{% url 'base:galeria' %}">Galeria</a>
-                <a class="nav-item nav-link" href="{% url 'base:contato' %}">Contato</a>
+                <a class="nav-item nav-link button" style="background-color:#fae3fd;" href="{% url 'base:sobre' %}">Sobre</a>
+                <a class="nav-item nav-link button" style="background-color:#fae3fd;" href="{% url 'base:servicos' %}">Serviços</a>
+                <a class="nav-item nav-link button" style="background-color:#fae3fd;" href="{% url 'base:depoimentos' %}">Depoimentos</a>
+                <a class="nav-item nav-link button" style="background-color:#fae3fd;" href="{% url 'base:loja' %}">Loja</a>
+                <a class="nav-item nav-link button" style="background-color:#fae3fd;" href="{% url 'base:apoiadores' %}">Apoiadores</a>
+                <a class="nav-item nav-link button" style="background-color:#fae3fd;" href="{% url 'base:galeria' %}">Galeria</a>
+                <a class="nav-item nav-link button" style="background-color:#fae3fd;" href="{% url 'base:contato' %}">Contato</a>
             </div>
             <div class="navbar-nav me-1 mr-1 ms-auto">
                 <div class="navbar-nav me-1 mr-1 "><a class="button " role="button" href="{% url 'base:inscricao' slug='receba-ajuda' %}">Receber Ajuda</a></div>
@@ -89,5 +89,12 @@
 {#    </div>#}
 </nav>
 {% block main %}{% endblock %}
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+{% endif %}
 </body>
 </html>

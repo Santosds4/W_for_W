@@ -1,8 +1,10 @@
-
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 # Create your views here.
-from wfm.base.models import Depoimento
+from django.urls import reverse
+
+from wfm.base.models import Depoimento, User
 
 
 def home(request):
@@ -53,7 +55,24 @@ def contato(request):
 
 
 def inscricao(request, slug):
-    return render(
-        request, 'base/inscricao.html', context={'slug': slug.replace('-', ' ').title()},
+
+    if request.method == 'POST':
+        print("I'm here")
+        try:
+            params = request.POST.dict()
+            del params['csrfmiddlewaretoken']
+            new_user = User.objects.create_user(**params)
+            new_user.is_superuser = False
+            new_user.is_staff = False
+            new_user.save()
+        except Exception as e:
+            messages.error(request, f'Erro ao salvar informações!\n{e}')
+        else:
+            messages.info(request, 'Suas informações foram salvas com sucesso!')
+
+        return redirect(reverse('base:home'))
+    else:
+        return render(
+            request, 'base/inscricao.html', context={'slug': slug.replace('-', ' ').title()},
     )
 

@@ -73,12 +73,19 @@ class Doacao(models.Model):
     descricao = models.CharField(_('Description'), max_length=150)
     operacao = models.CharField('Operacao',  max_length=20, choices=(('entrada', 'Entrada'), ('saída', 'Saída')))
     data = models.DateField(_('Date'), default=timezone.now)
-    itens = models.ManyToManyField('Item', through='DoacaoItem')
+    itens = models.ManyToManyField('Item', through='ItemMovimentado', blank=True, null=True)
     usuario = models.ForeignKey('User', on_delete=models.PROTECT)
     evento = models.ForeignKey('Evento', on_delete=models.PROTECT)
 
+    class Meta:
+        verbose_name = 'doação'
+        verbose_name_plural = 'doações'
 
-class DoacaoItem(models.Model):
+    def __str__(self):
+        return f'{self.descricao.capitalize()}, usuario: {self.usuario}'
+
+
+class ItemMovimentado(models.Model):
     doacao = models.ForeignKey('Doacao', on_delete=models.PROTECT)
     item = models.ForeignKey('Item', on_delete=models.PROTECT)
     quantidade = models.FloatField('Quantidade')
@@ -86,6 +93,11 @@ class DoacaoItem(models.Model):
     class Meta:
         unique_together = [['item', 'doacao']]
         ordering = ['doacao', 'item']
+        verbose_name = 'item movimentado'
+        verbose_name_plural = 'itens movimentados'
+
+    def __str__(self):
+        return f'{self.doacao.descricao.capitalize()}, item movimentado: {self.item.descricao}, quantidade: {self.quantidade}'
 
 
 class UserManager(BaseUserManager):
@@ -129,8 +141,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     phone = models.CharField(_('Phone number'), max_length=50, blank=True)
     cpf_cnpj = models.CharField('CFP/CNPJ', max_length=50, blank=True)
-    address = models.CharField(_('Address'), max_length=200, blank=True)
-    cep = models.CharField('CEP', max_length=30, blank=True)
+    address = models.CharField(_('Logradouro'), max_length=200, blank=True)
+    address_number = models.CharField(_('Número'), max_length=200, blank=True)
+    district = models.CharField(_('Bairro'), max_length=100, blank=True)
+    city = models.CharField(_('Cidade'), max_length=100, blank=True)
+    state = models.CharField(_('Estado'), max_length=30, blank=True)
+    cep = models.CharField(_('CEP'), max_length=30, blank=True)
     picture = models.ImageField(
         _('Arquivo foto de perfil'), upload_to='images/',
         null=True, blank=True,

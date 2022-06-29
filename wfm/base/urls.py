@@ -13,5 +13,4 @@ urlpatterns = [
     path('galeria/', galeria, name='galeria'),
     path('contato/', contato, name='contato'),
     path('inscricao/<slug:slug>', inscricao, name='inscricao'),
-
 ]
