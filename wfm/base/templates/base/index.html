@@ -1,13 +1,13 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block title %} Woman For Woman {% endblock %}
 
 {% block main %}
-<section class="section" id="start">
+
     <div class="container grid">
         <div class="image">
             <img
-                    src="static/assets/fotos/01.jpeg"
+                    src="{% static 'assets/fotos/01.jpeg'%}"
                     alt="As representantes do projeto"
             />
         </div>
@@ -31,30 +31,10 @@
                 da população feminina, mas não é. A Pobreza Menstrual interfere direta e indiretamente em outros
                 aspectos da sociedade.
             </p>
-            <a class="button" href="#about">Saiba mais</a>
+            <a class="button" href="{% url 'base:sobre' %}">Saiba mais</a>
         </div>
 
     </div>
-</section>
 
-    <div class="divider-1"></div>
-
-    <!-- ABOUT -->
-    {% include 'base/about_section.html' %}
-
-    <div class="divider-2"></div>
-
-    <!-- SERVICES -->
-    {% include 'base/services_section.html' %}
-
-    <div class="divider-1"></div>
-
-    <!-- TESTIMONIALS -->
-    {% include 'base/testimonials_section.html' %}
-
-    <div class="divider-2"></div>
-
-    <!-- CONTACT -->
-    {% include 'base/contact_section.html' %}
 
 {% endblock%}

@@ -1,0 +1,124 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Woman For Woman {% endblock %}
+
+{% block main %}
+    <section class="section" >
+    <div class="container grid">
+        <h2 class="title">{{ slug }}</h2>
+        <p><strong>WomanforWoman</strong> <br/>
+        {% if slug  == 'Apoie'%}
+            “Querer ser livre é também querer livre os outros”
+            <cite>Simone de Beauvoir</cite>
+            {% else %}
+            Preencha as informações abaixo.
+        {% endif %}
+        <p/>
+
+        <form class="row g-3">
+
+            <div class="col-12">
+                <label for="inputName" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="inputName" placeholder="Informe seu nome">
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-2">
+                    <label for="inputCep" class="form-label">Cep</label>
+                    <input type="text" class="form-control" id="inputCep"
+                           placeholder="Digite seu CEP"
+                    >
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <label for="inputLogradouro" class="form-label">Logradouro</label>
+                <input type="text" class="form-control" id="inputLogradouro" placeholder="" disabled readonly>
+            </div>
+
+            <div class="col-md-2">
+                <label for="inputNumero" class="form-label">Número</label>
+                <input type="text" class="form-control" id="inputNumero" placeholder="">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputBairro" class="form-label">Bairro</label>
+                <input type="text" class="form-control" id="inputBairro" disabled readonly>
+            </div>
+
+            <div class="col-md-5">
+                <label for="inputCidade" class="form-label">Cidade</label>
+                <input type="text" class="form-control" id="inputCidade" placeholder="" disabled readonly>
+            </div>
+
+
+            <div class="col-md-1">
+                <label for="inputEstado" class="form-label">Estado</label>
+                <input type="text" class="form-control" id="inputEstado" placeholder="" disabled readonly>
+            </div>
+
+            <!-- Force next columns to break to new line at md breakpoint and up -->
+            <div class="w-100 d-none d-md-block"></div>
+
+            <div class="col-md-6">
+                <label for="inputEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail">
+            </div>
+
+            <div class="col-md-2">
+                <label for="inputFone" class="form-label">Telefone</label>
+                <input type="text" class="form-control" id="inputFone">
+            </div>
+
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
+        <script>window.addEventListener('load', function () {
+            (function ($) {
+                $("input#inputCep").change(function () {
+                    let cep_code = $(this).val().replace('-','');
+                    let api_url = "https://cep.awesomeapi.com.br/json/"+cep_code
+                    if (cep_code.length <= 0 && cep_code.length < 8 ) {
+                        $("input#inputCep").val('');
+                        $("input#inputEstado").val('');
+                        $("input#inputCidade").val('');
+                        $("input#inputBairro").val('');
+                        $("input#inputLogradouro").val('');
+                        return;
+                    }
+                    $.get(api_url)
+                        .done(function(result) {
+                            $("input#inputCep").val(result.cep);
+                            $("input#inputEstado").val(result.state);
+                            $("input#inputCidade").val(result.city);
+                            $("input#inputBairro").val(result.district);
+                            $("input#inputLogradouro").val(result.address);
+                            alert("Dados recebidos e alterados");
+                        })
+                        .fail(function(jqXHR, textStatus, errorThrown){
+                                console.log(jqXHR);
+                                console.log('textStatus: ' + textStatus );
+                                console.log('errorThrown: ' + errorThrown  );
+                                alert(jqXHR.responseJSON.message || "Houve um erro desconhecido");
+                                $("input#inputCep").val('');
+                                $("input#inputEstado").val('');
+                                $("input#inputCidade").val('');
+                                $("input#inputBairro").val('');
+                                $("input#inputLogradouro").val('');
+                                $("input#inputCep").focus();
+
+                        });
+                });
+            }(jQuery));
+        });</script>
+        <script>
+            $(document).ready(function () {
+                $('#inputCep').inputmask('99999-999')
+            });
+        </script>
+    </div>
+</section>
+{% endblock %}
+
+
