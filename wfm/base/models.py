@@ -155,9 +155,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     USER_TYPE_CHOICES = (
         ('admin', 'Administrador BD'),
         ('gestor', 'Gestor WFW'),
-        ('staff', 'Apoiador'),
-        ('giver', 'Doadoar'),
-        ('beneficiary', 'Beneficiario')
+        ('staff', 'Staff'),
+        ('giver', 'Apoiador(a)'),
+        ('beneficiary', 'Beneficiária')
     )
 
     user_type = models.CharField(_('Tipo de Usuário'), max_length=20, blank=True,

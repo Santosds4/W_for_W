@@ -39,6 +39,7 @@ def loja(request):
 def apoiadores(request):
     return render(
         request, 'base/apoiadores.html',
+        context={'apoiadores': User.objects.filter(user_type='giver')}
     )
 
 

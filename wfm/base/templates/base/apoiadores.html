@@ -1,4 +1,28 @@
 {% extends 'base/base.html' %}
 {% load static %}
+
 {% block main %}
-{% endblock%}
+    <section class="section" id="testimonials">
+        <header>
+            <h2 class="title">Lista de Apoiadores</h2>
+        </header>
+
+        <div class="container mt-5">
+        <ul>
+            {% for apoiador in apoiadores %}
+                <li mb-5>
+                <cite>
+                    <img
+                            src="{{ apoiador.picture.url }}"
+                            alt="Foto de {{ apoiador.get_full_name }}"
+                    />
+                    {{ apoiador.get_full_name }}
+                </cite>
+                </li>
+            {% endfor %}
+        </ul>
+        </div>
+    </section>
+
+
+{% endblock %}
