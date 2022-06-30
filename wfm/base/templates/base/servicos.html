@@ -2,12 +2,13 @@
 {% load static %}
 
 {% block main %}
-<section class="section">
+    <section class="section">
         <div class="container grid">
-           <header>
+            <header>
                 <h2 class="title">Serviços</h2>
                 <p>
-                    Junte-se a nós da <strong>WomanforWoman</strong> e ajude a disponibilizar apoio às mulheres em vulnerabilidade
+                    Junte-se a nós da <strong>WomanforWoman</strong> e ajude a disponibilizar apoio às mulheres em
+                    vulnerabilidade
                     social.
                 </p>
                 <blockquote>
@@ -16,50 +17,73 @@
                 </blockquote>
 
             </header>
-            <div class="cards grid">
-                <div class="card">
-                    <i class="">1</i>
-                    <h3 class="title">Doe itens higiênicos, como:</h3>
-                    <ul>
-                        <li>absorventes menstruais</li>
-                        <li>calcinhas de algodão</li>
-                        <li>sabonete</li>
-                        <li>lenço umedecido</li>
+            <div class="container" >
+                <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="cards grid">
+                                <div class="card">
+                                    <i class="">1</i>
+                                    <h3 class="title">Doe itens higiênicos, como:</h3>
+                                    <ul>
+                                        <li>absorventes menstruais</li>
+                                        <li>calcinhas de algodão</li>
+                                        <li>sabonete</li>
+                                        <li>lenço umedecido</li>
 
-                    </ul>
-                </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <i class="">2</i>
+                                <h3 class="title">Faça doações financeiras através do pix:</h3>
+                                <p>
+                                    wfwwoman@gmail.com (Giovanna Sousa)
+                                </p>
+                            </div>
+                        </div>
 
-                <div class="card">
-                    <i class="">2</i>
-                    <h3 class="title">Faça doações financeiras através do pix:</h3>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <i class="">3</i>
+                                <h3 class="title">Se torne um ponto de coleta pontual:</h3>
+                                <p>
+                                    Pontos de coleta são indicados para recolher doações físicas, ou seja, comércios
+                                    físicos,
+                                    e-commerce, escolas, etc. .
+                                </p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="card">
+                                <i class="">4</i>
+                                <h3 class="title">Campanhas de arrecadação:</h3>
+                                <p>
+                                    Esse tipo de Ação é recomendada para arrecadar quantias monetárias.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
                     <p>
-                        wfwwoman@gmail.com (Giovanna Sousa)
+                        Para saber mais, entre em contato conosco por <a href="mailto:wfwwoman@gmail.com">email</a> ou
+                        telefone
+                        <a href="tel:+551196694-0852">+55 (11) 96694-0852</a>
                     </p>
                 </div>
-
-
-                 <div class="card">
-                    <i class="">3</i>
-                    <h3 class="title">Se torne um ponto de coleta pontual:</h3>
-                    <p>
-                        Pontos de coleta são indicados para recolher doações físicas, ou seja, comércios físicos,
-                        e-commerce, escolas, etc. .
-                    </p>
-                </div>
-
-               <div class="card">
-                    <i class="">4</i>
-                    <h3 class="title">Campanhas de arrecadação:</h3>
-                    <p>
-                        Esse tipo de Ação é recomendada para arrecadar quantias monetárias.
-                    </p>
-                </div>
-             </div>
-            <p>
-                Para saber mais, entre em contato conosco por <a href="mailto:wfwwoman@gmail.com">email</a> ou telefone
-                <a href="tel:+551196694-0852">+55 (11) 96694-0852</a>
-            </p>
+            </div>
         </div>
-
-</section>
+    </section>
 {% endblock %}

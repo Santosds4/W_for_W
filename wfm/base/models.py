@@ -73,7 +73,7 @@ class Doacao(models.Model):
     descricao = models.CharField(_('Description'), max_length=150)
     operacao = models.CharField('Operacao',  max_length=20, choices=(('entrada', 'Entrada'), ('saída', 'Saída')))
     data = models.DateField(_('Date'), default=timezone.now)
-    itens = models.ManyToManyField('Item', through='ItemMovimentado', blank=True, null=True)
+    itens = models.ManyToManyField('Item', through='ItemMovimentado', blank=True)
     usuario = models.ForeignKey('User', on_delete=models.PROTECT)
     evento = models.ForeignKey('Evento', on_delete=models.PROTECT)
 

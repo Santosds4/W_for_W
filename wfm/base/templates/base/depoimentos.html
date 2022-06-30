@@ -2,36 +2,56 @@
 {% load static %}
 
 {% block main %}
-<section class="section" id="testimonials">
-    <div class="container">
+    <section class="section" id="testimonials">
         <header>
             <h2 class="title">Depoimentos de quem já passou por aqui</h2>
         </header>
-        <div class="testimonials swiper-container">
-            <div class="swiper-wrapper">
-                {% for depoimento in depoimentos %}
-                <div class="testimonial swiper-slide">
-                    <blockquote>
+        <div class="container mt-5">
+            <!---->
+            <div id="carouselExampleCaptions" class="carousel carousel-dark slide" data-bs-ride="carousel">
+{#                <div class="carousel-indicators">#}
+{#                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"#}
+{#                            aria-current="true" aria-label="Slide 1"></button>#}
+{#                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" class="active"#}
+{#                            aria-label="Slide 2"></button>#}
+{#                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" class="active"#}
+{#                            aria-label="Slide 3"></button>#}
+{#                </div>#}
+                <div class="carousel-inner">
+                    {% for depoimento in depoimentos %}
+                        <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                            <div class="card" style="outline: 0px solid transparent;">
+                                <div class="card-body" style="outline: 0px solid transparent;">
+                                    <blockquote>
+                                        <p><span>&ldquo;</span> {{ depoimento.texto }}
+                                        </p>
+                                        <cite>
+                                            <img
+                                                    src="{{ depoimento.usuario.picture.url }}"
+                                                    alt="Foto de {{ depoimento.usuario.get_full_name }}"
+                                            />
+                                            {{ depoimento.usuario.get_full_name }}
+                                        </cite>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
 
-                        <p> <span>&ldquo;</span> {{ depoimento.texto}}
-                        </p>
-                        <cite>
-                            <img
-                                    src="{{ depoimento.usuario.picture.url }}"
-                                    alt="Foto de {{ depoimento.usuario.get_full_name }}"
-                            />
-                            {{depoimento.usuario.get_full_name }}
-                        </cite>
-                    </blockquote>
                 </div>
-                {% endfor %}
-            </div>
-
-            <!-- If we need pagination -->
-            <div class="swiper-pagination"></div>
+           </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
-{% endblock%}
+{% endblock %}

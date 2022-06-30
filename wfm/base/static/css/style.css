@@ -3,6 +3,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+}
+
+.ative {
+  outline: 0px solid transparent;
 }
 
 ul {
@@ -16,6 +21,15 @@ a {
 img {
   width: 100%;
   height: auto;
+}
+
+#picture::before {
+  content: "Arquivo";
+  position: absolute;
+  z-index: 2;
+  display: block;
+  background-color: #eee;
+  width: 95px;
 }
 
 /*====  VARIABLES ============================ */

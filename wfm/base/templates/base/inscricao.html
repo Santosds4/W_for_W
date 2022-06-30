@@ -15,7 +15,7 @@
         {% endif %}
         <p/>
 
-        <form class="row g-3" method="post">
+        <form class="row g-3" method="post" enctype="multipart/form-data">
 
             {% csrf_token %}
             {% if slug == 'Receba Ajuda' %}
@@ -48,7 +48,7 @@
 
             <div class="col-md-10">
                 <label for="address" class="form-label">Logradouro</label>
-                <input type="text" class="form-control" name="address" id="address" placeholder="" disabled readonly>
+                <input type="text" class="form-control" name="address" id="address" placeholder="" readonly>
             </div>
 
             <div class="col-md-2">
@@ -84,7 +84,11 @@
                 <label for="phone" class="form-label">Telefone</label>
                 <input type="text" class="form-control" name="phone" id="phone">
             </div>
-
+            <div class="col-md-4">
+                <label for="formFile" class="form-label">Foto de Perfil</label>
+                <input class="form-control" type="file"  name="picture" id="formFile"
+                       accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps">
+            </div>
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </div>
@@ -109,7 +113,8 @@
                             $("input#city").val(result.city);
                             $("input#state").val(result.state);
                             $("input#cep").val(result.cep);
-                            alert("Dados recebidos e alterados");
+                            alert("Dados do endereço recebidos com sucesso.\nAgora é somente necessário Inserir a numeração");
+                            $("input#address_number").focus();
                         })
                         .fail(function(jqXHR, textStatus, errorThrown){
                                 console.log(jqXHR);
