@@ -84,7 +84,7 @@
                 <a class="nav-item nav-link button" style="background-color:#fae3fd;" href="{% url 'base:galeria' %}">Galeria</a>
                 <a class="nav-item nav-link button" style="background-color:#fae3fd;" href="{% url 'base:contato' %}">Contato</a>
             </div>
-            <div class="navbar-nav me-1 mr-1 ms-auto">
+            <div class="navbar-nav mb-2 mb-lg-0">
                 <div class="navbar-nav me-1 mr-1 "><a class="button " role="button" href="{% url 'base:inscricao' slug='receba-ajuda' %}">Receber Ajuda</a></div>
                 <div class="navbar-nav me-1 mr-1 "><a class="button" role="button" href="{% url 'base:inscricao' slug='apoie' %}">Apoie WFW</a></div>
             </div>
@@ -98,7 +98,14 @@
         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
 
     {% endfor %}
-
 {% endif %}
+
+<script>(function () {
+    var s = document.createElement("script");
+    s.setAttribute("data-account", "D3ku3Myh3Y");
+    s.setAttribute("src", "https://cdn.userway.org/widget.js");
+    document.body.appendChild(s);
+})();</script>
+<noscript>Enable JavaScript to ensure <a href="https://userway.org">website accessibility</a></noscript>
 </body>
 </html>
